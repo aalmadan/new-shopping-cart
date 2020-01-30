@@ -211,7 +211,7 @@ const App = () => {
                           </button>
                           <button
                             className="w-20 h-5"
-                            disabled={meta.quantity < 1}
+                            disabled={meta.quantity < 2}
                             onClick={() =>
                               changeProductQuantity(
                                 product.sku,
