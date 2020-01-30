@@ -103,6 +103,28 @@ const App = () => {
     setCart(newCart);
   }
 
+  function addToCart(id, size) {
+    const updatedCart = Array.from(cart);
+    const doesItemExist = cart.findIndex(
+      item => item.id === id && item.size === size
+    );
+
+    console.log(doesItemExist);
+
+    if (doesItemExist > -1) {
+      updatedCart[doesItemExist].quantity++;
+      setCart(updatedCart);
+    } else {
+      updatedCart.push({
+        id,
+        size,
+        quantity: 1
+      });
+
+      setCart(updatedCart);
+    }
+  }
+
   return (
     Object.values(inventory).length > 0 && (
       <main>
@@ -255,13 +277,20 @@ const App = () => {
                           return ref ? ref[size] > 0 : true;
                         })
                         .map((size, i) => (
-                          <option value="">{size}</option>
+                          <option value={size}>{size}</option>
                         ))}
                     </select>
                   </div>
                   <button
                     className="bg-black text-white text-center py-4 mt-5"
-                    //onClick={() => setCart(product.sku, product.size, true)}
+                    onClick={e => {
+                      var select = e.target.previousElementSibling.querySelector(
+                        "select"
+                      ).value;
+
+                      addToCart(Number(product.sku), select);
+                      setIsSidebarOpen(true);
+                    }}
                   >
                     Add to cart
                   </button>
