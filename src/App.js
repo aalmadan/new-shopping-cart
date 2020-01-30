@@ -177,6 +177,21 @@ const App = () => {
                           {product.currencyFormat}
                           {product.price}
                         </h3>
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => {
+                            const updatedCart = Array.from(cart);
+                            const index = cart.findIndex(
+                              item =>
+                                item.id == product.sku &&
+                                item.size === meta.size
+                            );
+                            updatedCart.splice(index, 1);
+                            setCart(updatedCart);
+                          }}
+                        >
+                          &times;
+                        </div>
 
                         <div className="flex">
                           <button
@@ -213,7 +228,16 @@ const App = () => {
                   ))}
                 <div className="w-full p-5 flex justify-between">
                   <div className="text-lg">Subtotal</div>
-                  <div className="text-lg text-yellow-500">$100</div>
+                  <div className="text-lg text-yellow-500">
+                    $
+                    {cart.reduce((a, b) => {
+                      const itemPrice = products.find(item => item.sku == b.id)
+                        .price;
+                      return a + itemPrice * b.quantity;
+
+                      // return
+                    }, 0)}
+                  </div>
                 </div>
                 <button className="bg-gray-900 text-center w-full p-4 block">
                   Checkout
