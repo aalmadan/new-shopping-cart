@@ -58,6 +58,17 @@ const App = () => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(setUser);
+
+    firebase
+      .database()
+      .ref()
+      .on(
+        "value",
+        snap => {
+          if (snap.val()) setInventory(snap.val());
+        },
+        error => alert(error)
+      );
   }, []);
 
   useEffect(() => {
@@ -78,16 +89,16 @@ const App = () => {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    const fetchInventory = async () => {
-      const response = await fetch("./data/inventory.json");
-      const json = await response.json();
+  // useEffect(() => {
+  //   const fetchInventory = async () => {
+  //     const response = await fetch("./data/inventory.json");
+  //     const json = await response.json();
 
-      setInventory(json);
-    };
+  //     setInventory(json);
+  //   };
 
-    fetchInventory();
-  }, []);
+  //   fetchInventory();
+  // }, []);
 
   function changeProductQuantity(id, size, isIncrement) {
     const newCart = Array.from(cart);
