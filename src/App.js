@@ -250,7 +250,26 @@ const App = () => {
                     }, 0)}
                   </div>
                 </div>
-                <button className="bg-gray-900 text-center w-full p-4 block">
+                <button
+                  className="bg-gray-900 text-center w-full p-4 block"
+                  onClick={() => {
+                    const updates = {};
+
+                    cart.forEach(item => {
+                      const currentInventory = { ...inventory[item.id] };
+                      currentInventory[item.size] -= item.quantity;
+                      updates[item.id] = currentInventory;
+
+                      firebase
+                        .database()
+                        .ref()
+                        .update(updates)
+                        .then(() => {
+                          setCart([]);
+                        });
+                    });
+                  }}
+                >
                   Checkout
                 </button>
               </div>
