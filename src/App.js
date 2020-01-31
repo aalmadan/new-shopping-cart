@@ -77,13 +77,6 @@ const App = () => {
       const json = await response.json();
 
       setProducts(Object.values(json));
-      setCart([
-        {
-          id: 12064273040195392,
-          quantity: 2,
-          size: "M"
-        }
-      ]);
     };
 
     fetchProducts();
@@ -278,7 +271,7 @@ const App = () => {
         </header>
 
         <div className="catalogue flex w-full max-w-6xl mx-auto">
-          <div className="sidebar w-1/6 pr-5">
+          {/* <div className="sidebar w-1/6 pr-5"> 
             <div className="mb-4">
               <h2>Size</h2>
 
@@ -299,9 +292,9 @@ const App = () => {
                 <option value="">Highest to lowest</option>
               </select>
             </div>
-          </div>
+          </div> */}
 
-          <div className="w-5/6">
+          <div className="w-3/4 mx-auto">
             <p className="mb-3">{products.length} Product(s) found.</p>
 
             <div className="items-view  flex flex-wrap">
